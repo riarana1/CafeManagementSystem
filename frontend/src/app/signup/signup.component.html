@@ -1,6 +1,6 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row fxLayout="row">
-    <span>Sign Up</span>
+    <span class="toolbar-title">SignUp</span>
     <span class="spacer"></span>
     <button class="mat-dialog-close" mat-icon-button mat-dialog-close>
       <mat-icon>close</mat-icon>
@@ -8,8 +8,8 @@
   </mat-toolbar-row>
 </mat-toolbar>
 <mat-dialog-content class="mat-typography">
-  <form [formGroup]="signupForm" style="padding-top: 15px">
-    <div fxLayout="column">
+  <form [formGroup]="signupForm" style="padding-top: 32px">
+    <div fxLayout="column" fxLayoutGap="12px">
       <mat-form-field appearance="outline">
         <mat-label>Name</mat-label>
         <input matInput formControlName="name" required />

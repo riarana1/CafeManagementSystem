@@ -22,6 +22,30 @@ File: scss
 Global Styles 
 *******************/
 
+/* Title standardization for toolbars and section headers */
+.toolbar-title {
+  margin-left: 40px;
+  position: relative;
+  top: 6px;
+  color: $white;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Layout spacer for toolbars */
+.spacer {
+  flex: 1 1 auto;
+}
+
+/* Standardized bar for page sections matching the Login appearance */
+.section-header-bar {
+  background: $blue-gradient !important;
+  padding: 15px 24px;
+  border-radius: $radius;
+  margin-bottom: 32px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+}
+
 * {
   outline: none;
   box-sizing: border-box;
@@ -32,7 +56,7 @@ body {
   margin: 0;
   overflow-x: hidden;
   color: $bodytext;
-  font-weight: 300;
+  font-weight: 400;
   background: $inverse;
 }
 
@@ -104,7 +128,13 @@ h4,
 h5,
 h6 {
   font-family: $headingfont;
-  font-weight: 400;
+  font-weight: 600;
+  color: $headingtext;
+}
+
+.section-header-bar .section-heading {
+  color: $white;
+  margin: 0;
 }
 
 h1 {
@@ -610,7 +640,7 @@ html body {
     background-color: $megna;
   }
   .bg-theme {
-    background-color: $themecolor;
+    background: $blue-gradient !important;
   }
 
   .bg-inverse {
@@ -708,6 +738,42 @@ froms
 }
 .mat-form-field {
   width: 100%;
+  margin-bottom: 8px;
+}
+
+.mat-primary.mat-raised-button,
+.mat-primary.mat-flat-button,
+.mat-primary.mat-fab,
+.mat-primary.mat-mini-fab {
+  background: $blue-gradient !important;
+  color: white !important;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease !important;
+
+  &:hover:not([disabled]) {
+    transform: translateY(-2px);
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.25) !important;
+    filter: brightness(1.1);
+  }
+}
+
+/* Standardization for Timeline and circular markers */
+.timeline > li > .timeline-image {
+  background: $blue-gradient !important;
+}
+
+/* Modern Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
 }
 // /*******************
 // Mat card

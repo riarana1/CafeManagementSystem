@@ -14,8 +14,8 @@ $headingfont: 'Poppins', sans-serif;
 
 /*Material Theme Colors*/
 
-$mat-primary: mat.m2-define-palette(mat.$m2-purple-palette, 600);
-$mat-accent: mat.m2-define-palette(mat.$m2-purple-palette, 500);
+$mat-primary: mat.m2-define-palette(mat.$m2-blue-palette, 900);
+$mat-accent: mat.m2-define-palette(mat.$m2-amber-palette, 500);
 $mat-warn: mat.m2-define-palette(mat.$m2-red-palette, 500);
 
 $custom-typography: mat.m2-define-typography-config(
@@ -43,29 +43,30 @@ $theme: mat.m2-define-light-theme(
 
 /*Theme Colors*/
 
-$topbar: #2196f3;
+$topbar: #000c24;
 $sidebar: #fff;
 $sidebar-white: #e5edef;
 $sidebar-alt: #f2f6f8;
-$bodycolor: #eef5f9;
+$bodycolor: #f8fafc;
 $headingtext: #455a64;
 $bodytext: #67757c;
 $sidebar-text: #607d8b;
-$sidebar-icons: #99abb4;
+$sidebar-icons: #64748b;
 
 $font-16: 16px;
 
 $light-text: #a6b7bf;
-$themecolor: #7b1fa2;
-$themecolor-alt: #7b1fa2;
+$themecolor: #000c24;
+$themecolor-alt: #000c24;
 $themecolor-dark: #028ee1;
+$blue-gradient: linear-gradient(135deg, #000c24 0%, #00509d 100%);
 
 /*bootstrap Color*/
 $danger: #fc4b6c;
 $success: #26c6da;
 $warning: #ffb22b;
-$primary: #7460ee;
-$info: #7b1fa2;
+$primary: #000c24;
+$info: #00bcd4;
 // $inverse: #2f3d4a;
 $inverse: white;
 $muted: #99abb4;
@@ -96,7 +97,7 @@ $dark-transparent: rgba(0, 0, 0, 0.05);
 $white: #ffffff;
 $red: #fb3a3a;
 $yellow: #a0aec4;
-$purple: #7460ee;
+$purple: #000c24;
 $blue: #02bec9;
 $megna: #00897b;
 
@@ -107,5 +108,5 @@ $border: rgba(120, 130, 140, 0.13);
 $table-border: #f3f1f1;
 $card-brd: #d7dfe3;
 $dark-text: #848a96;
-$radius: 4px;
+$radius: 12px;
 $form-brd: #d9d9d9;

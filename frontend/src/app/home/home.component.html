@@ -1,18 +1,20 @@
 <div class="bg-image"></div>
 <app-best-seller></app-best-seller>
 
-<div class="Dto sticky">
-  <nav class="navbar-fixed-top">
-    <a href="#" class="logo">
-      <mat-icon>storefront</mat-icon> Cafe Management System
-    </a>
-    <ul>
-      <li>
-        <a (click)="handleLoginAction()">Login</a>
-        <a (click)="handleSignupAction()">signup</a>
-        <!--<a (click)="handleforgotPasswordAction()">Forgot Password</a>-->
-      </li>
-    </ul>
-  </nav>
+<div class="sticky">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row fxLayout="row">
+      <a href="#" class="navbar-brand toolbar-title">
+        <mat-icon class="m-r-5">storefront</mat-icon> Cafe Management System
+      </a>
+      <span class="spacer"></span>
+      <div class="nav-links">
+        <button mat-raised-button color="primary" class="m-r-10" (click)="handleLoginAction()">
+          Login
+        </button>
+        <button mat-raised-button color="primary" (click)="handleSignupAction()">Signup</button>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
 </div>
 <div class="footer" id="signup"></div>

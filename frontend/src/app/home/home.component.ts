@@ -9,10 +9,12 @@ import { UserService } from '../user.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import { BestSellerComponent } from '../best-seller/best-seller.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-home',
-  imports: [ReactiveFormsModule, MatIcon, BestSellerComponent],
+  imports: [ReactiveFormsModule, MatIcon, BestSellerComponent, MatToolbarModule, MatButtonModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
