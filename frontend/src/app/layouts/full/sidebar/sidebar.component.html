@@ -1,0 +1,12 @@
+<mat-nav-list appAccordion>
+  @for (menuitem of menuItems.getMenuitem(); track menuitem) {
+    <mat-list-item appAccordionLink routerLinkActive="selected" group="{{ menuitem.state }}">
+      @if (menuitem.type === 'link' && (menuitem.role === '' || menuitem.role === userRole)) {
+        <a class="" appAccordionToggle [routerLink]="['/cafe/', menuitem.state]">
+          <mat-icon>{{ menuitem.icon }}</mat-icon>
+          <span>{{ menuitem.name }}</span>
+        </a>
+      }
+    </mat-list-item>
+  }
+</mat-nav-list>

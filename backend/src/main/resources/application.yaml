@@ -1,0 +1,31 @@
+server:
+  port: '8081'
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/cafesystem_db
+    username: postgres
+    password: postgres
+  application:
+    name: SportsCenter
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        format_sql: true
+
+  mail:
+    host: smtp.gmail.com
+    username: projectteamemail99@gmail.com
+    port: '587'
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: 'true'
+          auth: 'true'
+    password: sjjynvtisnzmvfbm

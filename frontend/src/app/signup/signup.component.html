@@ -1,0 +1,137 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row fxLayout="row">
+    <span>Sign Up</span>
+    <span class="spacer"></span>
+    <button class="mat-dialog-close" mat-icon-button mat-dialog-close>
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-dialog-content class="mat-typography">
+  <form [formGroup]="signupForm" style="padding-top: 15px">
+    <div fxLayout="column">
+      <mat-form-field appearance="outline">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" required />
+        @if (signupForm.controls['name'].touched && signupForm.controls['name'].invalid) {
+          <mat-error>
+            @if (signupForm.controls['name'].hasError('required')) {
+              <span>This field is mandatory.</span>
+            }
+            @if (signupForm.controls['name'].hasError('pattern')) {
+              <span>This field is invalid.</span>
+            }
+          </mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Contact Number</mat-label>
+        <input matInput formControlName="contactNumber" required />
+        @if (
+          signupForm.controls['contactNumber'].touched &&
+          signupForm.controls['contactNumber'].invalid
+        ) {
+          <mat-error>
+            @if (signupForm.controls['contactNumber'].hasError('required')) {
+              <span>This field is mandatory.</span>
+            }
+            @if (signupForm.controls['contactNumber'].hasError('pattern')) {
+              <span>This field is invalid.</span>
+            }
+          </mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" required />
+        @if (signupForm.controls['email'].touched && signupForm.controls['email'].invalid) {
+          <mat-error>
+            @if (signupForm.controls['email'].hasError('required')) {
+              <span>This field is mandatory.</span>
+            }
+            @if (signupForm.controls['email'].hasError('pattern')) {
+              <span>This field is invalid.</span>
+            }
+          </mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          formControlName="password"
+          required
+          [type]="password ? 'password' : 'text'"
+        />
+        <button
+          type="button"
+          mat-icon-button
+          matSuffix
+          (click)="password = !password"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="password"
+        >
+          <mat-icon>{{ password ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        @if (signupForm.controls['password'].touched && signupForm.controls['password'].invalid) {
+          <mat-error>
+            @if (signupForm.controls['password'].hasError('required')) {
+              <span>This field is mandatory.</span>
+            }
+          </mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Confirm Password</mat-label>
+        <input
+          matInput
+          formControlName="confirmPassword"
+          required
+          [type]="confirmPassword ? 'password' : 'text'"
+        />
+        <button
+          type="button"
+          mat-icon-button
+          matSuffix
+          (click)="confirmPassword = !confirmPassword"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="password"
+        >
+          <mat-icon>{{ confirmPassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+        @if (
+          signupForm.controls['confirmPassword'].touched &&
+          signupForm.controls['confirmPassword'].invalid
+        ) {
+          <mat-error>
+            @if (signupForm.controls['confirmPassword'].hasError('required')) {
+              <span>This field is mandatory.</span>
+            }
+          </mat-error>
+        }
+        @if (validateSubmit() && !signupForm.controls['confirmPassword'].invalid) {
+          <mat-hint>
+            <span>Passwords do not match.</span>
+          </mat-hint>
+        }
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    (click)="handleSubmit()"
+    [disabled]="validateSubmit() || !(signupForm.valid && signupForm.dirty)"
+  >
+    <mat-icon>save</mat-icon> Signup
+  </button>
+  <button mat-raised-button color="warn" mat-dialog-close><mat-icon>cancel</mat-icon> Close</button>
+</mat-dialog-actions>
