@@ -1,4 +1,4 @@
-package com.awesoft.cafe.constents;
+package com.awesoft.cafe.constants;
 
 public class CafeConstants {
     public static final String SOMETHING_WENT_WRONG = "Something Went Wrong.";

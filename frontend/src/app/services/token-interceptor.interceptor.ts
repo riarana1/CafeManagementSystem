@@ -5,7 +5,7 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
-  HttpResponse
+  HttpErrorResponse,
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -13,32 +13,33 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class TokenInterceptorInterceptor implements HttpInterceptor {
-  
-
-  constructor(private router:Router) {}
+  constructor(private router: Router) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const token = localStorage.getItem('token');
 
-    if(token){
+    if (token) {
       request = request.clone({
-        setHeaders: {Authorization: `Bearer ${token}`}
+        setHeaders: { Authorization: `Bearer ${token}` },
       });
     }
     return next.handle(request).pipe(
-      catchError((err)=>{
-        if(err instanceof HttpResponse){
-          console.log(err.url);
-          if(err.status === 401 || err.status === 403){
-            if(this.router.url === '/'){}
-            else{
+      catchError((err) => {
+        if (err instanceof HttpErrorResponse) {
+          if (err.status === 401 || err.status === 403) {
+            if (this.router.url === '/') {
+              // Silent failure when already at root
+            } else {
+              console.error('Interceptor caught error:', err.status, err.url);
               localStorage.clear();
               this.router.navigate(['/']);
             }
+          } else {
+            console.error('Interceptor caught error:', err.status, err.url);
           }
         }
         return throwError(err);
-      })
-    )
+      }),
+    );
   }
 }

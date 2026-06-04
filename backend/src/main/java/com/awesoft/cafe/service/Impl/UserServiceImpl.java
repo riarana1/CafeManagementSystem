@@ -1,7 +1,7 @@
 package com.awesoft.cafe.service.Impl;
 
 import com.google.common.base.Strings;
-import com.awesoft.cafe.constents.CafeConstants;
+import com.awesoft.cafe.constants.CafeConstants;
 import com.awesoft.cafe.dtos.UserDto;
 import com.awesoft.cafe.entities.User;
 import com.awesoft.cafe.jwt.CustomerUserDetailsService;
@@ -39,6 +39,7 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     JwtFilter jwtFilter;
+    
     @Autowired
     CustomerUserDetailsService customerUserDetailsService;
 
@@ -75,7 +76,7 @@ public class UserServiceImpl implements UserService {
         try {
             Authentication auth = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(requestMap.get("email"), requestMap.get("password")));
             if (auth.isAuthenticated()) {
-                if (customerUserDetailsService.getUserDatails().getStatus().equalsIgnoreCase("true")) {
+                if ("true".equalsIgnoreCase(customerUserDetailsService.getUserDatails().getStatus())) {
                     return new ResponseEntity<String>("{\"token\":\"" + jwtUtil.generateToken(
                             customerUserDetailsService.getUserDatails().getEmail(), customerUserDetailsService.getUserDatails().getRole()) + "\"}",
                             HttpStatus.OK);
@@ -104,7 +105,11 @@ public class UserServiceImpl implements UserService {
         user.setContactNumber(requestMap.get("contactNumber"));
         user.setEmail(requestMap.get("email"));
         user.setPassword(passwordEncoder.encode(requestMap.get("password")));
-        user.setStatus(requestMap.get("status"));
+        if (requestMap.containsKey("status")) {
+            user.setStatus(requestMap.get("status"));
+        } else {
+            user.setStatus("false");
+        }
         user.setRole("user");
         return user;
     }

@@ -1,6 +1,6 @@
 package com.awesoft.cafe.controllers.Impl;
 
-import com.awesoft.cafe.constents.CafeConstants;
+import com.awesoft.cafe.constants.CafeConstants;
 import com.awesoft.cafe.controllers.BillController;
 import com.awesoft.cafe.entities.Bill;
 import com.awesoft.cafe.service.BillService;

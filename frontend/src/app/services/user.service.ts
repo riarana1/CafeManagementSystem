@@ -1,47 +1,53 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { UserSignupRequest, UserLoginRequest } from '../models';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
-  private url =  import.meta.env['VITE_API_URL'];
-  constructor(private httpClient:HttpClient) {}
-  
-  signup(data:any){
-    return this.httpClient.post(this.url + "/user/signup" , data , {
-      headers:new HttpHeaders().set('Content-Type' , 'application/json')
-    })
+  private readonly url = (import.meta.env['VITE_API_URL'] || 'http://localhost:8081').replace(
+    /\/$/,
+    '',
+  );
+
+  constructor(private httpClient: HttpClient) {
+    if (!import.meta.env['VITE_API_URL']) {
+      console.warn(`[UserService] VITE_API_URL is missing in .env. Falling back to: ${this.url}`);
+    } else {
+      console.log(`[UserService] API initialized at: ${this.url}`);
+    }
   }
 
-  forgotPassword(data:any){
-    return this.httpClient.post(this.url + "/user/forgotPassword" , data , {
-      headers:new HttpHeaders().set('Content-Type' , 'application/json')
-    })
-  }
-  login(data:any){
-    return this.httpClient.post(this.url + "/user/login" , data , {
-      headers:new HttpHeaders().set('Content-Type' , 'application/json')
-    })
-  }
-  checkToken() {
-    return this.httpClient.get(this.url + "/user/checkToken");
+  signup(data: UserSignupRequest) {
+    return this.httpClient.post(`${this.url}/user/signup`, data);
   }
 
-  changePassword(data:any){
-    return this.httpClient.post(this.url + "/user/changePassword" , data , {
-      headers:new HttpHeaders().set('Content-Type' , 'application/json')
-    })
+  forgotPassword(data: { email: string }) {
+    return this.httpClient.post(`${this.url}/user/forgotPassword`, data);
   }
 
-  getUsers(){
-    return this.httpClient.get(this.url + "/user/get");
+  login(data: UserLoginRequest) {
+    return this.httpClient.post<{ token: string }>(`${this.url}/user/login`, data);
   }
 
-  update(data:any){
-    return this.httpClient.post(this.url + "/user/update" , data , {
-      headers:new HttpHeaders().set('Content-Type' , 'application/json')
-    })
+  checkToken(): Observable<any> {
+    if (!localStorage.getItem('token')) {
+      return of(null);
+    }
+    return this.httpClient.get<any>(`${this.url}/user/checkToken`);
   }
- 
+
+  changePassword(data: any) {
+    return this.httpClient.post(`${this.url}/user/changePassword`, data);
+  }
+
+  getUsers() {
+    return this.httpClient.get<UserSignupRequest[]>(`${this.url}/user/get`);
+  }
+
+  update(data: any) {
+    return this.httpClient.post(`${this.url}/user/update`, data);
+  }
 }

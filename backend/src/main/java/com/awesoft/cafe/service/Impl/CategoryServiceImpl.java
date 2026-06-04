@@ -1,7 +1,7 @@
 package com.awesoft.cafe.service.Impl;
 
 import com.google.common.base.Strings;
-import com.awesoft.cafe.constents.CafeConstants;
+import com.awesoft.cafe.constants.CafeConstants;
 import com.awesoft.cafe.entities.Category;
 import com.awesoft.cafe.jwt.CustomerUserDetailsService;
 import com.awesoft.cafe.jwt.JwtFilter;

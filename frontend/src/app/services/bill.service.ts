@@ -1,32 +1,30 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BillService {
-  private url =  import.meta.env['VITE_API_URL'];
-  
-  constructor(private httpClient:HttpClient) { }
+  private readonly url = (import.meta.env['VITE_API_URL'] || 'http://localhost:8081').replace(
+    /\/$/,
+    '',
+  );
 
-  generateReport(data:any){
-    return this.httpClient.post(this.url +"/bill/generateReport" , data,{
-      headers: new HttpHeaders().set('Content-Type' , "application/json")
-    })
+  constructor(private httpClient: HttpClient) {}
+
+  generateReport(data: any) {
+    return this.httpClient.post(`${this.url}/bill/generateReport`, data);
   }
 
-  getPdf(data:any):Observable<Blob>{
-    return this.httpClient.post(this.url +"/bill/getPdf" , data,{responseType:'blob'});
+  getPdf(data: any): Observable<Blob> {
+    return this.httpClient.post(`${this.url}/bill/getPdf`, data, { responseType: 'blob' });
   }
 
-  getBills(){
-    return this.httpClient.get(this.url +"/bill/getBills");
+  getBills() {
+    return this.httpClient.get(`${this.url}/bill/getBills`);
   }
-  delete(id:any){
-    return this.httpClient.post(this.url +"/bill/delete/"+id,{
-      headers: new HttpHeaders().set('Content-Type' , "application/json")
-    });
+  delete(id: any) {
+    return this.httpClient.post(`${this.url}/bill/delete/${id}`, {});
   }
-
 }

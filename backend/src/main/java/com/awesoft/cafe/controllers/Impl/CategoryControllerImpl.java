@@ -1,6 +1,6 @@
 package com.awesoft.cafe.controllers.Impl;
 
-import com.awesoft.cafe.constents.CafeConstants;
+import com.awesoft.cafe.constants.CafeConstants;
 import com.awesoft.cafe.controllers.CategoryController;
 import com.awesoft.cafe.entities.Category;
 import com.awesoft.cafe.repositories.CategoryRepository;

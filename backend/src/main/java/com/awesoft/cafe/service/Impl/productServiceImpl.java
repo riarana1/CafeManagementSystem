@@ -1,6 +1,6 @@
 package com.awesoft.cafe.service.Impl;
 
-import com.awesoft.cafe.constents.CafeConstants;
+import com.awesoft.cafe.constants.CafeConstants;
 import com.awesoft.cafe.dtos.ProductDto;
 import com.awesoft.cafe.entities.Category;
 import com.awesoft.cafe.entities.Product;

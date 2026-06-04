@@ -1,32 +1,30 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CategoryService {
-  private url =  import.meta.env['VITE_API_URL'];
-  
-  constructor(private httpClient:HttpClient) { }
+  private readonly url = (import.meta.env['VITE_API_URL'] || 'http://localhost:8081').replace(
+    /\/$/,
+    '',
+  );
 
-  add(data:any){
-    return this.httpClient.post(this.url +"/category/add" , data,{
-      headers: new HttpHeaders().set('Content-Type' , "application/json")
-    })
+  constructor(private httpClient: HttpClient) {}
+
+  add(data: any) {
+    return this.httpClient.post(`${this.url}/category/add`, data);
   }
 
-  update(data:any){
-    return this.httpClient.post(this.url +"/category/update" , data,{
-      headers: new HttpHeaders().set('Content-Type' , "application/json")
-    })
+  update(data: any) {
+    return this.httpClient.post(`${this.url}/category/update`, data);
   }
 
-  getCategorys(){
-    return this.httpClient.get(this.url + "/category/get");
+  getCategorys() {
+    return this.httpClient.get(`${this.url}/category/get`);
   }
 
-  getFilteredCategorys(){
-    return this.httpClient.get(this.url + "/category/get?filterValue=true");
+  getFilteredCategorys() {
+    return this.httpClient.get(`${this.url}/category/get?filterValue=true`);
   }
 }
