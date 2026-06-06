@@ -16,8 +16,7 @@ export const routes: Routes = [
       },
       {
         path: '',
-        loadChildren: () =>
-          import('./material-component/materia.routes').then((m) => m.material_routes),
+        loadChildren: () => import('./components/materia.routes').then((m) => m.material_routes),
       },
       {
         path: 'dashboard',

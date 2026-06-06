@@ -1,54 +1,54 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Router } from '@angular/router';
-import { SnackbarService } from '../snackbar.service';
+import { SnackbarService } from '@/app/services/snackbar.service';
 import { AuthService } from './auth.service';
 import { jwtDecode } from 'jwt-decode';
-import { GlobalConstants } from '../shared/global-constants';
+import { GlobalConstants } from '@/app/shared/global-constants';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RouteGuardService {
-  constructor(public auth:AuthService,
-    public router:Router,
-    private snackbarService:SnackbarService) { }
+  constructor(
+    public auth: AuthService,
+    public router: Router,
+    private snackbarService: SnackbarService,
+  ) {}
 
-    canActivate(router:ActivatedRouteSnapshot):boolean{
-      let expectRoleArray = router.data;
-      expectRoleArray = expectRoleArray['expectedRole'];
+  canActivate(router: ActivatedRouteSnapshot): boolean {
+    let expectRoleArray = router.data;
+    expectRoleArray = expectRoleArray['expectedRole'];
 
-      const token:any = localStorage.getItem('token');
+    const token: any = localStorage.getItem('token');
 
-      var tokenPayload:any;
+    var tokenPayload: any;
 
-      try{
-        tokenPayload = jwtDecode(token);
-      }catch(err){
-        localStorage.clear();
-        this.router.navigate(['/']);
-      }
+    try {
+      tokenPayload = jwtDecode(token);
+    } catch (err) {
+      localStorage.clear();
+      this.router.navigate(['/']);
+    }
 
-      let expectedRole = '';
+    let expectedRole = '';
 
-      for(let i = 0 ;  i < expectRoleArray['length']; i++){
-        if(expectRoleArray[i] == tokenPayload.role){
-          expectedRole = tokenPayload.role;
-        }
-      }
-
-
-      if(tokenPayload.role == 'user' || tokenPayload.role == 'admin'){
-        if(this.auth.isAuthenticated() && tokenPayload.role == expectedRole){
-          return true;
-        }
-        
-        this.snackbarService.openSnackBar(GlobalConstants.unauthroized , GlobalConstants.error);
-        this.router.navigate(['/cafe/dashboard']);
-        return false;
-      }
-      else{
-        this.router.navigate(['/']);  
-        localStorage.clear();
-        return false;
+    for (let i = 0; i < expectRoleArray['length']; i++) {
+      if (expectRoleArray[i] == tokenPayload.role) {
+        expectedRole = tokenPayload.role;
       }
     }
+
+    if (tokenPayload.role == 'user' || tokenPayload.role == 'admin') {
+      if (this.auth.isAuthenticated() && tokenPayload.role == expectedRole) {
+        return true;
+      }
+
+      this.snackbarService.openSnackBar(GlobalConstants.unauthroized, GlobalConstants.error);
+      this.router.navigate(['/cafe/dashboard']);
+      return false;
+    } else {
+      this.router.navigate(['/']);
+      localStorage.clear();
+      return false;
+    }
+  }
 }

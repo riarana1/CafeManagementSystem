@@ -1,7 +1,7 @@
 import { Component, AfterViewInit } from '@angular/core';
-import { DashboardService } from '../services/dashboard.service';
-import { SnackbarService } from '../snackbar.service';
-import { GlobalConstants } from '../shared/global-constants';
+import { DashboardService } from '@/app/services/dashboard.service';
+import { SnackbarService } from '@/app/services/snackbar.service';
+import { GlobalConstants } from '@/app/shared/global-constants';
 
 import { RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';

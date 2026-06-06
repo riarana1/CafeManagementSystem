@@ -1,14 +1,14 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
-import { LoginComponent } from '../login/login.component';
-import { SignupComponent } from '../signup/signup.component';
-import { UserService } from '../user.service';
+import { ForgotPasswordComponent } from '@/app/forgot-password/forgot-password.component';
+import { LoginComponent } from '@/app/login/login.component';
+import { SignupComponent } from '@/app/signup/signup.component';
+import { UserService } from '@/app/services/user.service';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
-import { BestSellerComponent } from '../best-seller/best-seller.component';
+import { BestSellerComponent } from '@/app/best-seller/best-seller.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 

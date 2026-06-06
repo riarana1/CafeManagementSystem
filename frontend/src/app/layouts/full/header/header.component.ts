@@ -6,8 +6,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 
-import { ConfirmationComponent } from '@/app/material-component/dialog/view-bill-products/confirmation/confirmation.component';
-import { ChangePasswordComponent } from '@/app/material-component/dialog/view-bill-products/change-password/change-password.component';
+import { ConfirmationComponent } from '@/app/components/dialog/view-bill-products/confirmation/confirmation.component';
+import { ChangePasswordComponent } from '@/app/components/dialog/view-bill-products/change-password/change-password.component';
 import { take } from 'rxjs';
 
 @Component({

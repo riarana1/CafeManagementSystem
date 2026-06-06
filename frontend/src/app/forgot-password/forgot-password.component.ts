@@ -2,9 +2,9 @@ import { Component, OnInit, Inject } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
-import { GlobalConstants } from '../shared/global-constants';
-import { SnackbarService } from '../snackbar.service';
-import { UserService } from '../user.service';
+import { GlobalConstants } from '@/app/shared/global-constants';
+import { SnackbarService } from '@/app/services/snackbar.service';
+import { UserService } from '@/app/services/user.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';

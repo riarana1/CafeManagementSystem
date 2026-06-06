@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { RouteGuardService } from '../services/route-guard.service';
+import { RouteGuardService } from '@/app/services/route-guard.service';
 
 export const material_routes: Routes = [
   {
@@ -25,8 +25,7 @@ export const material_routes: Routes = [
   },
   {
     path: 'bill',
-    loadComponent: () =>
-      import('./view-bill/view-bill.component').then((m) => m.ViewBillComponent),
+    loadComponent: () => import('./view-bill/view-bill.component').then((m) => m.ViewBillComponent),
     canActivate: [RouteGuardService],
     data: { expectedRole: ['admin', 'user'] },
   },

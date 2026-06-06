@@ -5,12 +5,12 @@ import { Router } from '@angular/router';
 import { saveAs } from 'file-saver';
 import { BillService } from '@/app/services/bill.service';
 import { GlobalConstants } from '@/app/shared/global-constants';
-import { SnackbarService } from '@/app/snackbar.service';
+import { SnackbarService } from '@/app/services/snackbar.service';
 import { ConfirmationComponent } from '../dialog/view-bill-products/confirmation/confirmation.component';
 import { ViewBillProductsComponent } from '../dialog/view-bill-products/view-bill-products.component';
-import { MatCard } from "@angular/material/card";
-import { MatFormFieldModule } from "@angular/material/form-field";
-import { MatIconModule } from "@angular/material/icon";
+import { MatCard } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
@@ -19,10 +19,17 @@ import { CommonModule } from '@angular/common';
   selector: 'app-view-bill',
   templateUrl: './view-bill.component.html',
   styleUrls: ['./view-bill.component.scss'],
-  imports: [CommonModule, MatCard, MatFormFieldModule, MatTableModule, MatIconModule, MatTooltipModule, MatInputModule]
+  imports: [
+    CommonModule,
+    MatCard,
+    MatFormFieldModule,
+    MatTableModule,
+    MatIconModule,
+    MatTooltipModule,
+    MatInputModule,
+  ],
 })
 export class ViewBillComponent implements OnInit {
-
   displayedColumns: string[] = ['name', 'email', 'contactNumber', 'paymentMethod', 'total', 'view'];
   dataSource = new MatTableDataSource<any>([]);
   responseMessage: any;
@@ -32,23 +39,26 @@ export class ViewBillComponent implements OnInit {
   private snackbarService = inject(SnackbarService);
   private router = inject(Router);
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     this.tableData();
   }
   tableData() {
-    this.billservice.getBills().subscribe((response: any) => {
-      this.dataSource.data = response;
-    }, (error: any) => {
-      console.log(error.error?.message);
-      if (error.error?.message) {
-        this.responseMessage = error.error?.message;
-      } else {
-        this.responseMessage = GlobalConstants.genericError;
-      }
-      this.snackbarService.openSnackBar(this.responseMessage, GlobalConstants.error);
-    })
+    this.billservice.getBills().subscribe(
+      (response: any) => {
+        this.dataSource.data = response;
+      },
+      (error: any) => {
+        console.log(error.error?.message);
+        if (error.error?.message) {
+          this.responseMessage = error.error?.message;
+        } else {
+          this.responseMessage = GlobalConstants.genericError;
+        }
+        this.snackbarService.openSnackBar(this.responseMessage, GlobalConstants.error);
+      },
+    );
   }
 
   applyFilter(event: Event) {
@@ -59,41 +69,43 @@ export class ViewBillComponent implements OnInit {
   handleViewAction(values: any) {
     const dialogConfog = new MatDialogConfig();
     dialogConfog.data = {
-      data: values
+      data: values,
     };
-    dialogConfog.width = "100%";
+    dialogConfog.width = '100%';
     const dialogRef = this.dialog.open(ViewBillProductsComponent, dialogConfog);
     this.router.events.subscribe(() => {
       dialogRef.close();
     });
-
   }
   handleDeleteAction(values: any) {
-    const dialogConfog = new MatDialogConfig;
+    const dialogConfog = new MatDialogConfig();
     dialogConfog.data = {
       message: 'delete ' + values.name + ' bill',
-      confirmation: true
+      confirmation: true,
     };
     const dialogRef = this.dialog.open(ConfirmationComponent, dialogConfog);
     const sub = dialogRef.componentInstance?.onEmistStatusChange.subscribe((response) => {
       this.deleteBill(values.id);
       dialogRef.close();
-    })
+    });
   }
   deleteBill(id: any) {
-    this.billservice.delete(id).subscribe((response: any)=>{
-      this.tableData();
-      this.responseMessage = response?.message;
-      this.snackbarService.openSnackBar(this.responseMessage, "success");
-    }, (error: any) => {
-      console.log(error.error?.message);
-      if (error.error?.message) {
-        this.responseMessage = error.error?.message;
-      } else {
-        this.responseMessage = GlobalConstants.genericError;
-      }
-      this.snackbarService.openSnackBar(this.responseMessage, GlobalConstants.error);
-    })
+    this.billservice.delete(id).subscribe(
+      (response: any) => {
+        this.tableData();
+        this.responseMessage = response?.message;
+        this.snackbarService.openSnackBar(this.responseMessage, 'success');
+      },
+      (error: any) => {
+        console.log(error.error?.message);
+        if (error.error?.message) {
+          this.responseMessage = error.error?.message;
+        } else {
+          this.responseMessage = GlobalConstants.genericError;
+        }
+        this.snackbarService.openSnackBar(this.responseMessage, GlobalConstants.error);
+      },
+    );
   }
   downloadReportAction(values: any) {
     var data = {
@@ -103,14 +115,13 @@ export class ViewBillComponent implements OnInit {
       contactNumber: values.contactNumber,
       paymentMethod: values.paymentMethod,
       totalAmount: values.total.toString(),
-      productDetails: values.productDetails
-    }
+      productDetails: values.productDetails,
+    };
     this.downloadFile(values.uuid, data);
   }
   downloadFile(fileName: string, data: any) {
-
     this.billservice.getPdf(data).subscribe((response: any) => {
       saveAs(response, fileName + '.pdf');
-    })
+    });
   }
 }

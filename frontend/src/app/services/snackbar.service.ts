@@ -1,28 +1,23 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SnackbarService {
+  private readonly snackBar = inject(MatSnackBar);
 
-  constructor(private snackBar: MatSnackBar) { }
-  openSnackBar(message: string, action: string) {
-    if (action === 'error') {
-      this.snackBar.open(message, '', {
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
-        duration: 2000,
-        panelClass: ['black-snackbar']
-      });
-    }
-    else {
-      this.snackBar.open(message, '', {
-        horizontalPosition: 'center',
-        verticalPosition: 'top',
-        duration: 2000,
-        panelClass: ['green-snackbar']
-      });
-    }
+  /**
+   * Opens a snackbar with a message.
+   * @param message The message to display.
+   * @param action The label for the snackbar action.
+   */
+  openSnackBar(message: string, action: string = '') {
+    this.snackBar.open(message, action, {
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+      panelClass: action === 'error' ? ['error-snackbar'] : ['success-snackbar'],
+    });
   }
 }

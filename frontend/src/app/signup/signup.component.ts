@@ -7,9 +7,9 @@ import {
   MatDialogClose,
 } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { GlobalConstants } from '../shared/global-constants';
-import { SnackbarService } from '../snackbar.service';
-import { UserService } from '../user.service';
+import { GlobalConstants } from '@/app/shared/global-constants';
+import { SnackbarService } from '@/app/services/snackbar.service';
+import { UserService } from '@/app/services/user.service';
 import { MatIcon } from '@angular/material/icon';
 import { MatToolbar, MatToolbarRow } from '@angular/material/toolbar';
 import { MatFormField, MatError, MatLabel, MatHint, MatSuffix } from '@angular/material/form-field';

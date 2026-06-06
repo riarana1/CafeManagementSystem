@@ -1,53 +1,46 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { UserSignupRequest, UserLoginRequest } from '../models';
+import { UserSignupRequest, UserLoginRequest } from '@/app/models';
 import { Observable, of } from 'rxjs';
+import { API_BASE_URL } from '@/app/shared/api-constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private readonly url = (import.meta.env['VITE_API_URL'] || 'http://localhost:8081').replace(
-    /\/$/,
-    '',
-  );
+  private readonly baseUrl = API_BASE_URL;
 
-  constructor(private httpClient: HttpClient) {
-    if (!import.meta.env['VITE_API_URL']) {
-      console.warn(`[UserService] VITE_API_URL is missing in .env. Falling back to: ${this.url}`);
-    } else {
-      console.log(`[UserService] API initialized at: ${this.url}`);
-    }
-  }
+  constructor(private httpClient: HttpClient) {}
 
   signup(data: UserSignupRequest) {
-    return this.httpClient.post(`${this.url}/user/signup`, data);
+    return this.httpClient.post(`${this.baseUrl}/user/signup`, data);
   }
 
   forgotPassword(data: { email: string }) {
-    return this.httpClient.post(`${this.url}/user/forgotPassword`, data);
+    return this.httpClient.post(`${this.baseUrl}/user/forgotPassword`, data);
   }
 
   login(data: UserLoginRequest) {
-    return this.httpClient.post<{ token: string }>(`${this.url}/user/login`, data);
+    return this.httpClient.post<{ token: string }>(`${this.baseUrl}/user/login`, data);
   }
 
   checkToken(): Observable<any> {
+    const token = localStorage.getItem('token');
     if (!localStorage.getItem('token')) {
       return of(null);
     }
-    return this.httpClient.get<any>(`${this.url}/user/checkToken`);
+    return this.httpClient.get<any>(`${this.baseUrl}/user/checkToken`);
   }
 
   changePassword(data: any) {
-    return this.httpClient.post(`${this.url}/user/changePassword`, data);
+    return this.httpClient.post(`${this.baseUrl}/user/changePassword`, data);
   }
 
   getUsers() {
-    return this.httpClient.get<UserSignupRequest[]>(`${this.url}/user/get`);
+    return this.httpClient.get<UserSignupRequest[]>(`${this.baseUrl}/user/get`);
   }
 
   update(data: any) {
-    return this.httpClient.post(`${this.url}/user/update`, data);
+    return this.httpClient.post(`${this.baseUrl}/user/update`, data);
   }
 }

@@ -1,18 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { API_BASE_URL } from '@/app/shared/api-constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DashboardService {
-  private readonly url = (import.meta.env['VITE_API_URL'] || 'http://localhost:8081').replace(
-    /\/$/,
-    '',
-  );
+  private readonly baseUrl = API_BASE_URL;
 
   constructor(private httpClient: HttpClient) {}
 
   getDetails() {
-    return this.httpClient.get(`${this.url}/dashboard/details`);
+    return this.httpClient.get(`${this.baseUrl}/dashboard/details`);
   }
 }
